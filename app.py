@@ -18,20 +18,16 @@ from time import sleep
 #guardar tudo no exel, separados pro processo 
 
 
-
-numero_oab=133864
-
-
 #Entrar site https://pje-consulta-publica.tjmg.jus.br/
 
 servico = Service (ChromeDriverManager().install())
 driver = webdriver.Chrome(service=servico)
 driver.get('https://pje-consulta-publica.tjmg.jus.br/')
-sleep(100)
+sleep(30)
 
-
+numero_oab =  133864 
 #digitar oab
-campo_oab = driver.find_element(By.XPATH, "input [@id='fPP:Decoration:numeroOAB']")
+campo_oab = driver.find_element(By.XPATH,"//input[@id='fPP:Decoration:numeroOAB']")
 campo_oab.send_keys(numero_oab)
 
 #selecionar estado 
@@ -42,6 +38,22 @@ opcoes_estados.select_by_visible_text('SP')
 
 #clicar e pesquisar
 
-botao_pesquisar = driver.find_element(By.XPATH, '//input[@id="fPP:searchProcessos"]')
+botao_pesquisar = driver.find_element(By.XPATH, "//input[@id='fPP:searchProcessos']")
 botao_pesquisar.click()
 sleep(10)
+
+
+#entrar em processos 
+processos = driver.find_elements(By.XPATH,"//b[@class='btn-block']")
+ for processo in processos: 
+    processo.click()
+    sleep(10)
+    janelas = driver.window_handles #codigos janelas 
+    driver.switch_to.window(janelas[-1])
+    driver.set_window_size(1920,1080) #tamanho da janela no navegador 
+
+    numero_de_processo = driver.find_element(By.XPATH,"//div[@class='col-sm-12 ']")
+    numero_de_processo = numero_de_processo[0]
+    numero_de_processo = numero_de_processo.text
+    
+
