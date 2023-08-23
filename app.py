@@ -45,7 +45,8 @@ sleep(10)
 
 #entrar em processos 
 processos = driver.find_elements(By.XPATH,"//b[@class='btn-block']")
- for processo in processos: 
+
+for processo in processos: 
     processo.click()
     sleep(10)
     janelas = driver.window_handles #codigos janelas 
@@ -55,5 +56,12 @@ processos = driver.find_elements(By.XPATH,"//b[@class='btn-block']")
     numero_de_processo = driver.find_element(By.XPATH,"//div[@class='col-sm-12 ']")
     numero_de_processo = numero_de_processo[0]
     numero_de_processo = numero_de_processo.text
-    
+
+
+    data_distribuicao = driver.find_element(By.XPATH, "//div[@class='value col-sm-12 ']")
+    data_distribuicao = data_distribuicao[1]
+    data_distribuicao = data_distribuicao.text
+    sleep(5000)
+
+
 
